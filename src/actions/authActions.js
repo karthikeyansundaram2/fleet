@@ -7,26 +7,53 @@ import {
   import * as API_END_POINTS from "../constants/api";
   import axios from "axios";
 
-  export function login(loginData){
+  export function login(loginData,callback){
    return dispatch=>{
        axios.post(
            API_END_POINTS.LOGIN, loginData, {
             headers: {
               Accept: "application/json,",
-              "Content-Type": "application/json"
+              'Content-Type': 'application/x-www-form-urlencoded',
             },
             withCredentials: true
           }
           )
           .then(async response => {
               if(response.status==200){
+                callback(response)
                 dispatch({
                     type: types.LOGIN,
                     userData: response&&response.data
                   })
               }
           }).catch((e)=>{
+            alert('Incorrect password or email')
               console.log(e)
+              // callback(e)
           })
    }
   }
+export function createProfile(profileData,callback){
+return dispatch=>{
+  axios.post(
+    API_END_POINTS.CREATE_ACCOUNT,profileData,{
+      headers:{
+        Accept:"application/json",
+        "Content-Type":"application/json"
+      },
+      withCredentials:true
+    }
+  ).then(async response=>{
+    if(response.status==200){
+      dispatch({
+        type:types.CREATE_ACCOUNT,
+        profileData:response&&response.data
+      })
+      callback(response)
+    }
+  }).catch((e)=>{
+    console.log(e)
+    callback(response)
+  })
+}
+}

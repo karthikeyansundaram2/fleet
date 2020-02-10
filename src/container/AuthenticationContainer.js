@@ -6,7 +6,6 @@ import { ActionCreators } from "../actions";
 export default function AuthenticationContainer(ComposedComponent) {
   class AuthenticationContainer extends React.Component {
     render() {
-      console.log('container',this.props)
       return <ComposedComponent  {...this.props} />
     }
   }

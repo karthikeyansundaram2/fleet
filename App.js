@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { SafeAreaView, Modal, PermissionsAndroid, Platform, View,Text } from "react-native";
 import { Provider } from "react-redux";
-import { RootNavigator } from "./src/Routes";
+import  AppContainer  from "./src/Routes";
 import Login from "./src/screens/Authentication/login";
 import CreateAccount from "./src/screens/Authentication/createAccount"
 import Leed from "./src/screens/tasks/leed";
@@ -27,8 +27,8 @@ render(){
         <SafeAreaView style={{ flex: 1, backgroundColor: "#516A98" }}>
             {/* <RootNavigator/> */}
             
-            <Login
-             props={this.props}
+            <AppContainer
+              uriPrefix="/app"
             />
           {/* <CreateAccount/> */}
           {/* <Leed/> */}
@@ -38,19 +38,4 @@ render(){
 }
 }
 
-const AppNavigator = createSwitchNavigator({
-    Home: {
-      screen: App,
-    },
-    Login:{
-        screen:AuthenticationContainer(Login)
-    },
-    CreateAccount: {
-        screen: CreateAccount
-    },
-    leed:{
-        screen:Leed
-    }
-  });
-  
-  export default createAppContainer(AppNavigator);
+export default App;

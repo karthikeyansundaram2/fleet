@@ -31,6 +31,18 @@ const authStyles={
          padding:20,
          marginTop:10
         },
+        textInputAddress:{ 
+          color:'#FFFFFF',
+          textAlign: 'left',
+          height: 100,
+          borderWidth: 2,
+          width:340,
+           borderColor: '#516A98',
+           borderRadius: 20 ,
+           backgroundColor:'rgba(0,0,0,0.1)', 
+           padding:20,
+           marginTop:10
+          },
         button: {
             marginTop:10,
             backgroundColor: '#CEBFA3',

@@ -9,9 +9,14 @@ import loginScreen from './screens/Authentication/login';
 import CreateAccount from "./screens/Authentication/createAccount";
 import Leed from "./screens/tasks/leed";
 import { createAppContainer } from 'react-navigation';
+import map from "./screens/tasks/map";
+import addTasks from "./screens/tasks/addTasks";
+import StaticWebView from "./screens/staticWebView";
 import AuthenticationContainer from "./container/AuthenticationContainer"
-const RouteNavigator = createSwitchNavigator({
-  
+const AppNavigator = createSwitchNavigator({
+  Home: {
+    screen: AuthenticationContainer(loginScreen),
+  },
   Login:{
       screen:AuthenticationContainer(loginScreen)
   },
@@ -19,10 +24,19 @@ const RouteNavigator = createSwitchNavigator({
       screen: AuthenticationContainer(CreateAccount)
   },
   leed:{
-      screen:Leed
+      screen:AuthenticationContainer(Leed)
   },
-  initialRouteName: "App"
-
+  map:{
+    screen:AuthenticationContainer(map)
+  },
+  addTasks:{
+    screen:AuthenticationContainer(addTasks)
+  },
+  StaticWebView:{
+    screen:AuthenticationContainer(StaticWebView)
+  }
 });
+const AppContainer = createAppContainer(AppNavigator);
 
-export default createAppContainer(RouteNavigator);
+
+export default AppContainer;

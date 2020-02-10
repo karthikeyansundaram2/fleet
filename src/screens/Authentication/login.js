@@ -7,8 +7,6 @@ import { Text,
     StyleSheet,
     Dimensions,
 TouchableOpacity } from "react-native";
-import axios from "axios";
-import CreateAccount from "./createAccount";
 import styles from "../../styles/authStyles";
 const WINDOW_WIDTH= Dimensions.get("window").width;
 const WINDOW_HEIGHT= Dimensions.get("window").height;
@@ -16,20 +14,39 @@ export default class login extends React.Component {
    constructor(props){
        super(props);
        this.state={
-           text:''
+           email:'',
+           password:''
        }
-   }
+       this.formData = {};
+       this.errors = {};
+this.onLoginSubmit=this.onLoginSubmit.bind(this) 
+  }
 
-   componentDidMount(){
-       let loginData={
-           "email":'karthi@leaguex.com',
-           "password":'karthi'
-       }
-    //    this.props.actions.login(loginData)
-   }
+  onLoginSubmit(){
+      
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if( re.test(this.state.email)){
+        let loginData={
+            'email':this.state.email,
+            'password':this.state.password
+        }
+        this.props.actions.login(loginData,(response)=>{
+            if(response&&response.status==200){
+                let user_id=response&&response.data&&response.data.username&&response.data.username.id
+                this.props.navigation.navigate('leed',{
+                    'user_id':user_id
+                })
+            }
+            
+        })
+    }
+    else{
+        alert('Email is invalid')
+    }
+  }
+
   
     render(){
-        
         const { props}= this.props
         return(
      <SafeAreaView style={{flex:1}}>
@@ -51,19 +68,22 @@ export default class login extends React.Component {
     placeholder="Email"
     placeholderTextColor="#FFFFFF"               
     style={styles.textInput}
-    onChangeText={(text) => this.setState({text})}
-    value={this.state.text}
+    onChangeText={(text) => this.setState({email:text})}
+    value={this.state.email}
+    autoCapitalize = 'none'
+
     />
 <TextInput
     placeholder="Password"
     placeholderTextColor="#FFFFFF"  
     style={styles.textInput}
-    onChangeText={(text) => this.setState({text})}
-     value={this.state.text}
+    onChangeText={(text) => this.setState({password:text})}
+     value={this.state.password}
+     secureTextEntry={true}
     />
 
 <TouchableOpacity style={styles.button}
-        onPress={() => navigation.navigate('leed')}
+        onPress={() => this.onLoginSubmit()}
       >
      <Text style={styles.buttonText}>LOGIN</Text>
      </TouchableOpacity>
@@ -72,7 +92,7 @@ export default class login extends React.Component {
 <TouchableOpacity 
       onPress={()=>{
         //   this.createAccount()
-        props.navigation.navigate("CreateAccount")
+        this.props.navigation.navigate("CreateAccount")
       }}
     >
      <Text style={{ fontSize: 22, color: "#CEBFA3"}}>CREATE AN ACCOUNT</Text>

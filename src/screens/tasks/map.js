@@ -40,6 +40,7 @@ class AnimatedMarkers extends React.Component {
         longitudeDelta: 0
       })
     };
+    this.address=this.props.navigation.getParam('address')
   }
   async  requestLocationPermission() {
     try {
@@ -61,7 +62,7 @@ class AnimatedMarkers extends React.Component {
     }
   }
  geocodeEvent(){
-     Geocoder.from("banglore")
+     Geocoder.from(this.address)
 		.then(json => {
 			var location = json.results[0].geometry.location;
       console.log("location",location);
@@ -72,7 +73,7 @@ class AnimatedMarkers extends React.Component {
      
 		})
     .catch(error => console.warn(error));
-    Geocoder.from(41.89, 12.49)
+    Geocoder.from(this.state.latitude, this.state.longitude)
 		.then(json => {
         		var addressComponent = json.results[0].address_components[0];
 			console.log("address",addressComponent);
@@ -146,6 +147,7 @@ class AnimatedMarkers extends React.Component {
   };
 
   render() {
+    alert(this.address)
     var markers = [
       {
         latitude: this.state.latitude,

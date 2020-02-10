@@ -16,11 +16,42 @@ export default class createAccount extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            text:''
+            username:'',
+            email:'',
+            mobile_number:'',
+            password:''
+        }
+        this.createAccount=this.createAccount.bind(this);
+    }
+    createAccount(){
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(this.state.email)){
+            if(this.state.mobile_number.length==10){
+                let profileData={
+                    'username':this.state.username,
+                    'email':this.state.email,
+                    'mobile_number':this.state.mobile_number,
+                    'password':this.state.password
+                }
+                this.props.actions.createProfile(profileData,(res)=>{
+                    if(res&&res.status==200){
+                        alert(res)
+                        this.props.navigation.navigate('leed')
+                    }
+                    else{
+                        console.log(res)
+                    }
+                })
+            }
+            else{
+                alert('invalid phone number')
+            }
+        }
+        else{
+            alert('invalid email')
         }
     }
     render(){
-        console.log(this.props)
         return(
           
             <SafeAreaView style={{flex:1}}>
@@ -40,32 +71,35 @@ export default class createAccount extends React.Component {
                   placeholder="UserName"
                   placeholderTextColor="#FFFFFF"  
                   style={styles.textInput}
-                  onChangeText={(text) => this.setState({text})}
-                  value={this.state.text}
+                  onChangeText={(text) => this.setState({username:text})}
+                  value={this.state.username}
                   />
                <TextInput
                   placeholder="Phone Number"
                   placeholderTextColor="#FFFFFF"               
                   style={styles.textInput}
-                  onChangeText={(text) => this.setState({text})}
-                  value={this.state.text}
+                  onChangeText={(text) => this.setState({mobile_number:text})}
+                  value={this.state.mobile_number}
+                  keyboardType={'number-pad'}
                   />
            <TextInput
                   placeholder="Email"
                   placeholderTextColor="#FFFFFF"  
                   style={styles.textInput}
-                  onChangeText={(text) => this.setState({text})}
-                  value={this.state.text}
+                  onChangeText={(text) => this.setState({email:text})}
+                  value={this.state.email}
+                  autoCapitalize={false}
                   />
              <TextInput
                   placeholder="Password"
                   placeholderTextColor="#FFFFFF"  
                   style={styles.textInput}
-                  onChangeText={(text) => this.setState({text})}
-                  value={this.state.text}
+                  onChangeText={(text) => this.setState({password:text})}
+                  value={this.state.password}
+                  secureTextEntry={true}
                   />
                    <TouchableOpacity style={styles.button}
-			            onPress={() => alert('button clicked')}
+			            onPress={() =>this.createAccount()}
                         >
 			         <Text style={styles.buttonText}>SIGN UP</Text>
 		             </TouchableOpacity>
