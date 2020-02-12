@@ -33,7 +33,11 @@ this.onLoginSubmit=this.onLoginSubmit.bind(this)
         this.props.actions.login(loginData,(response)=>{
             if(response&&response.status==200){
                 let user_id=response&&response.data&&response.data.username&&response.data.username.id
-                this.props.navigation.navigate('leed',{
+               response&&response.data&&response.data.username&&response.data.username.is_admin?
+                 this.props.navigation.navigate('addTasks',
+                 {'is_admin':true
+                                })
+               : this.props.navigation.navigate('leed',{
                     'user_id':user_id
                 })
             }

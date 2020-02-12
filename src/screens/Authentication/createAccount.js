@@ -35,8 +35,10 @@ export default class createAccount extends React.Component {
                 }
                 this.props.actions.createProfile(profileData,(res)=>{
                     if(res&&res.status==200){
-                        alert(res)
-                        this.props.navigation.navigate('leed')
+console.log(res)
+                        this.props.navigation.navigate('leed',{
+                            'user_id':res&&res.data&&res.data.User&&res.data.User.id
+                        })
                     }
                     else{
                         console.log(res)

@@ -74,7 +74,84 @@ const authStyles={
             textAlign:'center',
             top: WINDOW_HEIGHT-100 , 
             width: WINDOW_WIDTH,
-        }
+        },
+      pickerStyle:{
+        
+          inputIOS: {
+            color: '#FFFFFF',
+            paddingHorizontal: 10,
+            height: 60,
+            backgroundColor:
+              'rgba(0,0,0,0.1)',
+            fontSize: 14,
+            borderRadius: 20 ,
+            width:340,
+            marginTop:10,
+            marginHorizontal:35,
+            padding:25,
+
+
+          },
+          inputAndroid: {
+            color: '#FFFFFF',
+            paddingHorizontal: 10,
+            height: 60,
+            backgroundColor:
+              'rgba(0,0,0,0.1)',
+            fontSize: 14,
+            borderRadius: 20 ,
+            width:340,
+            marginTop:10,
+            marginHorizontal:35
+            
+          },
+          placeholderColor: "white",
+          marginHorizontal: 20,
+          padding:20
+
+        
+      },
+      multipleRadiobox: {
+        flexDirection: "row",
+        justifyContent: "space-between"
+      },
+      radioBox: {
+        flexDirection: "row",
+        alignItems: "center"
+      },
+      radioBox_outer: {
+        width: 24,
+        height: 24,
+        backgroundColor: "#0B1120",
+        borderColor: "#0041FF",
+        borderWidth: 1,
+        borderRadius: 16,
+        marginRight: 10,
+        justifyContent: "center",
+        alignItems: "center"
+      },
+      radioBoxActive: {
+        width: 14,
+        height: 14,
+        backgroundColor: "#0041FF",
+        borderRadius: 7,
+        shadowOffset: {
+          width: 1,
+          height: 1
+        },
+        shadowColor: "#0041FF",
+        shadowOpacity: 1
+      },
+      radioBoxInActive: {
+        width: 14,
+        height: 14,
+        backgroundColor: "#0B1120",
+        borderRadius: 7,
+      },
+      radioBox_label: {
+        fontSize: 14,
+        color: "#FFFFFF"
+      }
          
 }
 export default authStyles;

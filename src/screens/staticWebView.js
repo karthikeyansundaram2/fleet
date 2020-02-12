@@ -42,6 +42,11 @@ export default class StaticWebView extends Component {
       return true;
     }
   };
+  onMessage = (e) => {
+    let { data } = e.nativeEvent; // data you will receive from html
+    console.log(data)
+   }
+
 
   render() {
     const { navigation, commonReducer } = this.props;
@@ -57,6 +62,9 @@ export default class StaticWebView extends Component {
             on
             originWhitelist={['*']}
             source={{ uri: 'https://forms.gle/FUctDRhoFAs2kSc6A' }}
+            onMessage={(event)=> console.log(event.nativeEvent.data)}
+
+
           />
         {this.state.visible && (
           <ActivityIndicator

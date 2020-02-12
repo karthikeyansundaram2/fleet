@@ -13,7 +13,7 @@ import {
            API_END_POINTS.LOGIN, loginData, {
             headers: {
               Accept: "application/json,",
-              'Content-Type': 'application/x-www-form-urlencoded',
+              'Content-Type': "application/json",
             },
             withCredentials: true
           }
@@ -53,7 +53,27 @@ return dispatch=>{
     }
   }).catch((e)=>{
     console.log(e)
-    callback(response)
   })
 }
+}
+export function getUsers(){
+  return dispatch=>{
+    axios.get(
+      API_END_POINTS.GET_USERS,{
+        headers:{
+          Accept:"application/json",
+          "Content-Type":"application/json"
+        },
+        withCredentials:true
+  
+      }
+    ).then(response=>{
+      if(response.status==200){
+        dispatch({
+          type:types.GET_USERS,
+          users:response&&response.data
+        })
+      }
+    })
+  }
 }

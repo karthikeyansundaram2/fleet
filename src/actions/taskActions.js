@@ -47,5 +47,51 @@ import { isRestProperty } from "@babel/types";
           })
       }
   }
+  export function updateStatus(data,callback){
+      return dispatch=>{
+          axios.put(
+              API_END_POINTS.PUT_TASKS,data,{
+                headers:{
+                    Accept:"application/json",
+                    "Content-Type": "application/json"
+                  },
+                  withCredentials:true
+              }
+          ).then(response=>{
+              if(response.status==200){
+                  callback(response)
+                  dispatch({
+                      type:types.PUT_TASKS,
+                      taskData:response&&response.data
+                  })
+              }
+          }).catch((e)=>{
+              console.log(e)
+          })
+      }
+  }
 
-  
+  export function feedback(feedbackData,callback){
+      return dispatch=>{
+          axios.post(
+              API_END_POINTS.ADD_FEEDBACK,feedbackData,{
+                headers:{
+                    Accept:"application/json",
+                    "Content-Type": "application/json"
+                  },
+                  withCredentials:true
+              }
+          ).then(async response=>{
+              if(response.status==200){
+                  alert(response&&response.data.message)
+                  await callback(response)
+                  dispatch({
+                      type:types.ADD_FEEDBACK,
+                      feedback:response&&response.data
+                  })
+              }
+          }).catch((e)=>{
+              console.log(e)
+          })
+      }
+  }

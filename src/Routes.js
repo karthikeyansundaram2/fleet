@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  createStackNavigator,
   createSwitchNavigator,
   createBottomTabNavigator
 } from "react-navigation";
@@ -12,8 +11,10 @@ import { createAppContainer } from 'react-navigation';
 import map from "./screens/tasks/map";
 import addTasks from "./screens/tasks/addTasks";
 import StaticWebView from "./screens/staticWebView";
+import { createStackNavigator } from 'react-navigation-stack';
+import feedbackForm from "./screens/feedbackForm"
 import AuthenticationContainer from "./container/AuthenticationContainer"
-const AppNavigator = createSwitchNavigator({
+const AppNavigator = createStackNavigator({
   Home: {
     screen: AuthenticationContainer(loginScreen),
   },
@@ -31,6 +32,9 @@ const AppNavigator = createSwitchNavigator({
   },
   addTasks:{
     screen:AuthenticationContainer(addTasks)
+  },
+  feedback:{
+    screen:AuthenticationContainer(feedbackForm)
   },
   StaticWebView:{
     screen:AuthenticationContainer(StaticWebView)

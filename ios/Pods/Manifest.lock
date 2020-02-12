@@ -35,6 +35,8 @@ PODS:
     - React
   - react-native-maps (0.24.2):
     - React
+  - react-native-safe-area-context (0.7.2):
+    - React
   - react-native-webview (8.0.6):
     - React
   - React/Core (0.59.10):
@@ -90,6 +92,12 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNCMaskedView (0.1.6):
+    - React
+  - RNGestureHandler (1.5.6):
+    - React
+  - RNScreens (2.0.0-beta.2):
+    - React
   - yoga (0.59.10.React)
 
 DEPENDENCIES:
@@ -100,6 +108,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -114,6 +123,9 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -135,8 +147,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -150,9 +170,13 @@ SPEC CHECKSUMS:
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-google-maps: 568cb03d0eae7fef93626f65d05be55642404ed4
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
+  react-native-safe-area-context: d227bd5ef6776683c330f44187351dc138b2a4cb
   react-native-webview: e11b5d7da61ac3acee13f3ae3184d417f773c5d5
+  RNCMaskedView: e5b99bc191945f157adeede68da9d424462de177
+  RNGestureHandler: 911d3b110a7a233a34c4f800e7188a84b75319c6
+  RNScreens: 5e4758109c6d35f9a009ce72af873df907548020
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 99f1833b51fef35981aa55cc5e15aeb2dff57129
+PODFILE CHECKSUM: 91fc649360c47fc13ed9864dd8bb46567b21d1f0
 
 COCOAPODS: 1.8.4

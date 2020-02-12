@@ -4,7 +4,8 @@ import assign from "lodash/assign";
 
 const initalState={
     loginData:{},
-    profileData:{}
+    profileData:{},
+    getUsers:{}
 }
 export default function authReducer(state=initalState,action){
     switch(action.type){
@@ -26,6 +27,21 @@ export default function authReducer(state=initalState,action){
         case types.GET_TASKS:{
             return assign({},state,{
                 getTask:action.getTask
+            })
+        }
+        case types.GET_USERS:{
+            return assign({},state,{
+                getUsers:action.users
+            })
+        }
+        case types.ADD_FEEDBACK:{
+            return assign({},state,{
+                feedback:action.feedback 
+            })
+        }
+        case types.PUT_TASKS:{
+            return assign({},state,{
+                taskData:action.taskData
             })
         }
           default:

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity ,SafeAreaView,Image,ScrollView } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { StyleSheet, View, Text, TouchableOpacity ,SafeAreaView,Image,ScrollView,ActivityIndicator } from 'react-native';
  import styles from '../../styles/authStyles';
  import _ from "lodash";
 export default class leed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked:false
+      clicked:false,
+      visible:true
     }
     this.user_id=this.props.navigation.getParam('user_id')
   }
@@ -15,18 +15,39 @@ export default class leed extends React.Component {
   componentDidMount(){
       this.props.actions.getTask(this.user_id)
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps&&nextProps.authReducer&&nextProps.authReducer.getTask&&nextProps.authReducer.getTask){
+      this.setState({visible:false})
+    }
+  }
   
   render() {
     //   console.log(this.props&&this.props.authReducer&&this.props.authReducer.getTask)
       let tasks=_.groupBy(this.props&&this.props.authReducer&&this.props.authReducer.getTask,'leed_status')
-      
+      // tasks&&tasks.pending&&this.setState({visible:false})
         return (
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:1,color:"#516A98"}}>
 
 
-                <ScrollView style={{marginHorizontal:10}}>
+                <ScrollView style={{marginHorizontal:10,flex:1,backgroundColor:"#516A98"}}>
 
       <View style={styles.container}>
+      {tasks&&tasks.pending&&!tasks.pending.length && (
+          <ActivityIndicator
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            size="large"
+          />
+        )}
+     
+       
           <View style={{ height: 50, marginHorizontal: 30, marginTop: 40, flexDirection: "row"}}>
           <Image     
               style={{width:50,height:50}}
@@ -48,11 +69,14 @@ export default class leed extends React.Component {
                Location
           </Text>
           </View>
-          {_.map(tasks&&tasks.pending,(task,key)=>{
+          {  tasks&&tasks.pending&&tasks.pending.length? _.map(tasks&&tasks.pending,(task,key)=>{
               return(
        <TouchableOpacity
           onPress={()=>{
-            this.props.navigation.navigate('StaticWebView')
+            this.props.navigation.navigate('feedback',{
+              'user_id':this.user_id,
+              'task_id':task.id
+            })
           }}
        >
             <View style={{ height: 110, backgroundColor: "rgba(0,0,0,0.2)", marginHorizontal: 10, flexDirection: "row", justifyContent: "space-between",  borderRadius: 6,marginTop:5}} key={key}>
@@ -83,7 +107,17 @@ export default class leed extends React.Component {
           </View>
           </TouchableOpacity>              )
           })
+          :
           
+         
+        <Image
+        style={{
+        margin:130,
+        marginHorizontal:100,
+        justifyContent: 'center',
+        alignItems: 'center',
+       }}
+  source={require("../../images/no_tasks.png")}        />
           }
           <View style={{marginHorizontal:30,marginTop:10, flexDirection:'row', alignItems:'center'}}>
           <TouchableOpacity activeOpacity = { .5 } 
@@ -101,6 +135,8 @@ export default class leed extends React.Component {
 </TouchableOpacity>
           </View>
 
+            
+{tasks&&tasks.completed?<View>
 <View style={{ height: 50, marginHorizontal: 30, marginTop: 40, flexDirection: "row"}}>
           <Image     
               style={{width:50,height:50}}
@@ -125,7 +161,7 @@ export default class leed extends React.Component {
           {_.map(tasks&&tasks.completed,(task,key)=>{
               return(
 
-            <View style={{ height: 110, backgroundColor: "rgba(0,0,0,0.2)", marginHorizontal: 10, flexDirection: "row", justifyContent: "space-between",  borderRadius: 6}} key={key}>
+            <View style={{ height: 110, backgroundColor: "rgba(0,0,0,0.2)", marginHorizontal: 10, flexDirection: "row", justifyContent: "space-between",  marginBottom:10,borderRadius: 6}} key={key}>
               <View style={{    width: "20%",  alignItems: "center",  marginTop: 36 }}>
               <Text style={{ color: "#FFF", fontSize: 18}}>{task.type}</Text>
               </View>
@@ -149,7 +185,7 @@ export default class leed extends React.Component {
           })
           
         }
-
+</View>:<View/>}
       </View>
      
      </ScrollView>
